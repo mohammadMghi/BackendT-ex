@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\StorageController;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Response;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,4 +16,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+
+Route::get('image/{filename}', [StorageController::class,'displayImage'])->name('image.displayImage');
+
+Route::get('files/{file_name}', function ($file_name = null) {
+    $path = storage_path('files/' . $file_name);
+ 
+    if (file_exists($path)) {
+        return Response::download($path);
+    }
 });

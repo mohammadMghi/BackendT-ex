@@ -33,6 +33,8 @@ class AuthController extends Controller
 
 
         $oClient = OClient::where('password_client', 1)->first();
+
+        
         return $this->getTokenAndRefreshToken($oClient, $user->phone_number, $password);
     }
 
@@ -51,7 +53,7 @@ class AuthController extends Controller
 
     public function refreshToken() { 
         $oClient = OClient::where('password_client', 1)->first();
-     
+        
         return $this->newTokenWithRefreshToken($oClient,request('refresh_token'));
     }
 
@@ -67,7 +69,7 @@ class AuthController extends Controller
             'scope' => '',
         ]);
         
-       
+    
             
         return $response->json();
 
